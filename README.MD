@@ -1,19 +1,23 @@
-# Unrar from scratch (ish) with python libraries on a Mac
+# Unrar from scratch (ish) 
 
-The first move was to instll unrar,
+Unpacking a rar file on a mac with python .  More fun than the app store !
 
-```
+## Getting Started
+
+The first move was to install the unrar module using pip,
+
+```bash
 $ pip install unrar
 ```
 
 This pyhton module (and most solutions i saw)  depends on a library from https://www.rarlab.com/rar_add.htm .  Here is direct download :  http://www.rarlab.com/rar/unrarsrc-5.2.6.tar.gz This will be an exectuable once it is compiled .
 
 
-I hadn't worked with C++ in a while so the following was very usedful to me: https://hiltmon.com/blog/2015/09/28/the-simple-c-plus-plus-makefile-executable-edition/ . Specifically the section called 'Using the Makefile' all the way at the bottom.
+I hadn't worked with C++ in a while (9 years.. ?) so the following was very usedful to me: https://hiltmon.com/blog/2015/09/28/the-simple-c-plus-plus-makefile-executable-edition/ . Specifically the section called 'Using the Makefile' all the way at the bottom.
 
-Next we ```$ cd ``` into the unrar directory we just downloaded. Run ```$ make clean```followed by ```$ make -j```
+Next is to  ```$ cd ``` into the unrar directory we just downloaded. Run ```$ make clean```followed by ```$ make -j```
 
-I had to open the makefile (```$ vi makefile ```) and remove the -D flag and also changed the path from local to bin .
+I had to open the makefile (```$ vi makefile ```) and remove the -D flag and also changed the path from local to bin . Was getting a 62 and 72 error before I did this .
 
 ```
 install-unrar:
@@ -42,6 +46,9 @@ This list should include the path from the makefile. I had to add usr/local to m
 
 The usual place for an executable like this would be usr/bin , but I wasnt able to move any files into that directory at this point because of security features implemented by apple. See here for explanation : https://superuser.com/questions/933019/sudo-cant-create-file-in-usr-bin-in-el-capitan/1000037
 
+
+## Putting it all together
+
 At this point all the dependancies should be there and we are ready to rest.  Have a Rar file ready to test with.  This link has more information if you are interested in the other methods from the rarfile module : https://python-unrar.readthedocs.io/en/v0.3/rarfile.html#rarfile-objects . If there is an error about partial data from one of the elements or 'bad rar file' that is probably from the module not being able to access the Rar library we complied above becuase of a path issue.
 
 ```
@@ -59,33 +66,11 @@ At this point all the dependancies should be there and we are ready to rest.  Ha
   >>>> file.namelist()
 ```
 
+Thank you for reading!
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Resources and credits
+## Resources and Acknowledgments
 https://www.rarlab.com/rar_add.htm
 
 https://pypi.org/project/unrar/
